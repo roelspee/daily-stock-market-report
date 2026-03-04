@@ -1,7 +1,0 @@
-[build]
-builder = "NIXPACKS"
-
-[deploy]
-cronSchedule = "0 7 * * *"
-startCommand = "python market_report.py"
-restartPolicyType = "NEVER"
