@@ -30,6 +30,7 @@ def send_email(html_content):
 if __name__ == "__main__":
     print(f"[{datetime.now()}] Starting step 2 -- retrieving batch result...")
 
+    # Read batch ID saved by step 1
     if not os.path.exists(BATCH_ID_FILE):
         raise FileNotFoundError(f"Batch ID file not found at {BATCH_ID_FILE}. Did step 1 run?")
 
@@ -40,8 +41,9 @@ if __name__ == "__main__":
 
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
+    # Poll until batch is complete
     waited = 0
-    poll_interval = 15
+    poll_interval = 15  # seconds between checks
 
     while waited < MAX_WAIT_SECONDS:
         batch = client.messages.batches.retrieve(batch_id)
@@ -57,6 +59,7 @@ if __name__ == "__main__":
     if batch.processing_status != "ended":
         raise TimeoutError(f"Batch did not complete within {MAX_WAIT_SECONDS} seconds")
 
+    # Retrieve results
     print(f"[{datetime.now()}] Batch complete -- retrieving results...")
 
     full_response = ""
@@ -73,15 +76,10 @@ if __name__ == "__main__":
 
     print(f"[{datetime.now()}] Report retrieved ({len(full_response)} chars)")
 
+    # Send email
     send_email(full_response)
+
+    # Clean up batch ID file
     os.remove(BATCH_ID_FILE)
 
     print(f"[{datetime.now()}] Done!")
-```
-
----
-
-### `retrieve/requirements.txt`
-```
-anthropic==0.49.0
-sendgrid==6.11.0
