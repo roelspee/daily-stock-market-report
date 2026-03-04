@@ -72,9 +72,16 @@ if __name__ == "__main__":
         ]
     )
 
-    # Save batch ID so step 2 can retrieve it
     with open(BATCH_ID_FILE, "w") as f:
         f.write(batch.id)
 
     print(f"[{datetime.now()}] Batch submitted -- ID: {batch.id}")
     print(f"[{datetime.now()}] Step 1 done. Step 2 will run in 15 minutes.")
+```
+
+---
+
+### `submit/requirements.txt`
+```
+anthropic==0.49.0
+sendgrid==6.11.0
