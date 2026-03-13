@@ -2,6 +2,6 @@
 builder = "NIXPACKS"
 
 [deploy]
-cronSchedule = "0 7 * * *"
+cronSchedule = "0 7 * * 1,3,5"
 startCommand = "python step1_submit.py"
 restartPolicyType = "NEVER"
