@@ -2,6 +2,6 @@
 builder = "NIXPACKS"
 
 [deploy]
-cronSchedule = "15 7 * * *"
+cronSchedule = "15 7 * * *  1,3,5"
 startCommand = "python step2_retrieve.py"
 restartPolicyType = "NEVER"
