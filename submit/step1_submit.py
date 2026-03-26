@@ -88,12 +88,12 @@ Search for today's most important stock market and macroeconomic news globally.
 Focus on: US markets, European markets, tech sector, AI, semiconductors, oil/energy,
 central banks (Fed + ECB), EUR/USD, and any geopolitical events moving markets.
 
-Then produce a report titled Top 10 Market Facts You Need to Know Today.
+Then produce a report titled Top 5 Market Facts You Need to Know Today.
 
 Format as a complete HTML email:
 1. Styled header with title and today's date
 2. Short 1-sentence intro
-3. Numbered list of 10 facts, each with emoji + bold headline, 2-3 sentences explanation,
+3. Numbered list of 5 facts, each with emoji + bold headline, 2-3 sentences explanation,
    and one italic sentence starting with European investor angle: explaining the specific
    impact on my portfolio holdings listed above
 4. Section titled European Investor Summary referencing my actual holdings
