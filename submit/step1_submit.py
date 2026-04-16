@@ -116,7 +116,7 @@ if __name__ == "__main__":
             {
                 "custom_id": "daily-market-report",
                 "params": {
-                    "model": "model": "claude-sonnet-4-6",
+                    "model": "claude-sonnet-4-6",
                     "max_tokens": 4000,
                     "system": SYSTEM_PROMPT,
                     "tools": [{"type": "web_search_20250305", "name": "web_search"}],
