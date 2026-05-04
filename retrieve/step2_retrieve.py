@@ -1,30 +1,33 @@
 import anthropic
-import sendgrid
-from sendgrid.helpers.mail import Mail
+import resend
 import os
 import time
-import traceback
 from datetime import datetime
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
-SENDGRID_API_KEY  = os.environ["SENDGRID_API_KEY"]
-SENDER_EMAIL      = "roelspee@protonmail.com"
-RECIPIENT_EMAIL   = "roelleonard@gmail.com"
+RESEND_API_KEY    = os.environ["RESEND_API_KEY"]
+
+EMAIL_SENDER      = "onboarding@resend.dev"
+EMAIL_RECEIVER    = "roelspee@protonmail.com"
+
 MAX_WAIT_SECONDS  = 600
+
+resend.api_key = RESEND_API_KEY
+
 
 def send_email(html_content):
     today = datetime.now().strftime("%d %b %Y")
     subject = f"Daily Market Report -- {today}"
-    message = Mail(
-        from_email=SENDER_EMAIL,
-        to_emails=RECIPIENT_EMAIL,
-        subject=subject,
-        html_content=html_content
-    )
-    sg = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
-    response = sg.send(message)
-    print(f"[{datetime.now()}] Email sent -- status {response.status_code}")
+
+    r = resend.Emails.send({
+        "from": EMAIL_SENDER,
+        "to": EMAIL_RECEIVER,
+        "subject": subject,
+        "html": html_content,
+    })
+    print(f"[{datetime.now()}] Email sent (id: {r['id']})")
+
 
 if __name__ == "__main__":
     print(f"[{datetime.now()}] Starting step 2 -- finding latest batch...")
@@ -74,5 +77,4 @@ if __name__ == "__main__":
     print(f"[{datetime.now()}] Report retrieved ({len(full_response)} chars)")
 
     send_email(full_response)
-
     print(f"[{datetime.now()}] Done!")
